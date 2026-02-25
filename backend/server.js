@@ -1,7 +1,15 @@
+require("dotenv").config();
+const connectDB = require("./config/db");
 const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
-require('dotenv').config();
+
+mongoose.connect(process.env.MONGO_URI, {
+  tls: true,
+  tlsCAFile: "./rds-combined-ca-bundle.pem",
+  retryWrites: false,
+});
+// require('dotenv').config();
 
 const MONGODB_URI = process.env.MONGODB_URI 
   || 'mongodb://localhost:27017/chatdb';
