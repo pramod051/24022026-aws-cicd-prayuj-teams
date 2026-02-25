@@ -30,26 +30,26 @@ const getConnectionOptions = () => {
     console.log('🔗 Connecting to AWS DocumentDB...');
     
     // Check if certificate exists
-//    const certPath = path.join(__dirname, 'rds-combined-ca-bundle.pem');
-//    const certExists = fs.existsSync(certPath);
+    const certPath = path.join(__dirname, 'rds-combined-ca-bundle.pem');
+    const certExists = fs.existsSync(certPath);
     
-//    if (!certExists) {
-//      console.warn('⚠️  Certificate not found, SSL validation disabled');
-//    }
+    if (!certExists) {
+      console.warn('⚠️  Certificate not found, SSL validation disabled');
+    }
 
-//    return {
-//      ...baseOptions,
-//      ssl: true,                    // ✅ Required for DocumentDB
-//      sslValidate: certExists,
-//      sslCA: certExists ? fs.readFileSync(certPath) : undefined,
-//      retryWrites: false,           // ✅ DocumentDB doesn't support this
-//      directConnection: false,
-//    };
-//  }
+    return {
+      ...baseOptions,
+      ssl: true,                    // ✅ Required for DocumentDB
+      sslValidate: certExists,
+      sslCA: certExists ? fs.readFileSync(certPath) : undefined,
+      retryWrites: false,           // ✅ DocumentDB doesn't support this
+      directConnection: false,
+    };
+  }
 
-//  console.log('🔗 Connecting to local MongoDB...');
-//  return baseOptions;
-//};
+  console.log('🔗 Connecting to local MongoDB...');
+  return baseOptions;
+};
 
 // Connect with retry logic
 const connectWithRetry = (retries = 5, delay = 5000) => {
