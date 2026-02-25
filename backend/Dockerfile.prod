@@ -9,7 +9,7 @@ COPY . .
 
 # Download AWS DocumentDB certificate
 RUN wget https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem -O rds-combined-ca-bundle.pem
-COPY rds-combined-ca-bundle.pem /app/
+#COPY rds-combined-ca-bundle.pem /app/
 EXPOSE 5000
 
 CMD ["node", "server.js"]
