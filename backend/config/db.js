@@ -8,6 +8,7 @@ const connectDB = async () => {
       tls: true,
       tlsCAFile: path.resolve(__dirname, "../rds-combined-ca-bundle.pem"),
       retryWrites: false,
+      serverSelectionTimeoutMS: 5000,
     });
 
     console.log("DocumentDB Connected Successfully");
@@ -16,5 +17,9 @@ const connectDB = async () => {
     process.exit(1);
   }
 };
+
+mongoose.connection.on("disconnected", () => {
+  console.warn("⚠️  Mongoose disconnected");
+});
 
 module.exports = connectDB;
